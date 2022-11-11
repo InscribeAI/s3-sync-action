@@ -9,7 +9,7 @@ repos:
     -   id: end-of-file-fixer
     -   id: trailing-whitespace
         args: [--markdown-linebreak-ext=md]
--   repo: git@github.com:InscribeAI/gitleaks.git
-    rev: 83a7b4551b262d65d53b38dd0b1926cb5bdd544d
+-   repo: git@github.com:zricethezav/gitleaks.git
+    rev: v8.15.0
     hooks:
     -   id: gitleaks
