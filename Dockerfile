@@ -10,10 +10,7 @@ LABEL repository="https://github.com/jakejarvis/s3-sync-action"
 LABEL homepage="https://jarv.is/"
 LABEL maintainer="Jake Jarvis <jake@jarv.is>"
 
-# https://github.com/aws/aws-cli/blob/master/CHANGELOG.rst
-ENV AWSCLI_VERSION='1.25.88'
-
-RUN pip install --quiet --no-cache-dir awscli==${AWSCLI_VERSION}
+RUN apk update && apk upgrade && apk add --no-cache aws-cli
 
 ADD entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
