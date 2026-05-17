@@ -44,6 +44,32 @@ jobs:
 ```
 
 
+### Authenticating with AWS OIDC
+
+You can skip the `AWS_ACCESS_KEY_ID` / `AWS_SECRET_ACCESS_KEY` secrets entirely by using [`aws-actions/configure-aws-credentials`](https://github.com/aws-actions/configure-aws-credentials) to assume an IAM role via OIDC before this step. It exports the credentials into the job env, so this action picks them up unchanged.
+
+```yaml
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: aws-actions/configure-aws-credentials@v4
+      with:
+        role-to-assume: arn:aws:iam::123456789012:role/github-s3-sync
+        aws-region: us-east-1
+    - uses: InscribeAI/s3-sync-action@master
+      with:
+        args: --follow-symlinks --delete
+      env:
+        AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+```
+
+
 ### Configuration
 
 The following settings must be passed as environment variables as shown in the example. Sensitive information, especially `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`, should be [set as encrypted secrets](https://help.github.com/en/articles/virtual-environments-for-github-actions#creating-and-using-secrets-encrypted-variables) — otherwise, they'll be public to anyone browsing your repository's source code and CI logs.
