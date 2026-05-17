@@ -7,9 +7,9 @@ if [ -z "$AWS_S3_BUCKET" ]; then
   exit 1
 fi
 
-# Default to us-east-1 if AWS_REGION not set.
+# Default to us-west-2 if AWS_REGION not set.
 if [ -z "$AWS_REGION" ]; then
-  AWS_REGION="us-east-1"
+  AWS_REGION="us-west-2"
 fi
 
 # Override default AWS endpoint if user sets AWS_S3_ENDPOINT.
